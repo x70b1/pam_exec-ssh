@@ -1,0 +1,35 @@
+#!/bin/sh
+
+agent_add_key () {
+    expect << EOF
+        log_user 0
+
+        spawn ssh-add $1
+        expect "Enter passphrase for $1" {
+            send "$2\r"
+            expect {
+                "Identity added: $1" {
+                    send "$2\r"
+                    exit 0
+                }
+                "Bad passphrase, try again" {
+                    exit 1
+                }
+            }
+        }
+EOF
+}
+
+read -r PAM_PASS
+PAM_PASS=$(echo "$PAM_PASS" | sed 's/\$/\\\$/')
+
+SSH_AUTH_SOCK=/run/user/$(id -u "$PAM_USER")/ssh-agent.socket
+export SSH_AUTH_SOCK
+
+if [ -d /home/"$PAM_USER"/.ssh/unlock.d/ ]; then
+    find /home/"$PAM_USER"/.ssh/unlock.d/ -maxdepth 1 ! -wholename "/home/$PAM_USER/.ssh/unlock.d/" ! -name "config" ! -name "known_hosts" ! -name "*.pub" | while read -r key; do
+        agent_add_key "$key" "$PAM_PASS"
+    done
+fi
+
+exit 0
