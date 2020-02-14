@@ -13,4 +13,4 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
       - name: Run ShellCheck on all files
-        run: find . '(' -name '*.sh' ')' -exec /opt/shellcheck-stable/shellcheck {} +
+        run: /opt/shellcheck-stable/shellcheck pam_exec-ssh
