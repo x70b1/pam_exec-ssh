@@ -1,6 +1,6 @@
 # pam_exec-ssh
 
-Unlock SSH keys on login. As `pam_ssh` did not the job for me, I wrote `pam_exec-ssh` as a small replacement.
+Unlock SSH keys on login using PAM. As `pam_ssh` did not the job for me, I wrote `pam_exec-ssh` as a small replacement.
 
 It is assumed that your login password is identical to the password of the keys.
 
@@ -34,7 +34,7 @@ Add the call to your PAM config:
 auth		optional	pam_exec.so expose_authtok /usr/bin/pam_exec-ssh
 ```
 
-The `ssh-agent` can be slow. So it is sometimes useful not to unlock all ssh keys at the login. It is better to unlock a selection of often used keys. You need a directory `unlock.d` at your local .ssh path. There are a few symlinks to all keys that should be unlocked for you.
+The `ssh-agent` can be slow. So it is sometimes useful not to unlock all ssh keys at the login. It is better to unlock a selection of often used keys. You need a directory `unlock.d` at your local `.ssh` path. There are a few symlinks to all keys that should be unlocked for you.
 
 ```sh
 mkdir ~/.ssh/unlock.d
