@@ -1,5 +1,9 @@
 # pam_exec-ssh
 
+![ShellCheck](https://github.com/x70b1/pam_exec-ssh/workflows/ShellCheck/badge.svg?branch=master)
+[![GitHub contributors](https://img.shields.io/github/contributors/x70b1/pam_exec-ssh.svg)](https://github.com/x70b1/pam_exec-ssh/graphs/contributors)
+[![license](https://img.shields.io/github/license/x70b1/pam_exec-ssh.svg)](https://github.com/x70b1/pam_exec-ssh/blob/master/LICENSE)
+
 Unlock SSH keys on login using PAM. As `pam_ssh` did not the job for me, I wrote `pam_exec-ssh` as a small replacement.
 
 It is assumed that your login password is identical to the password of the keys.
