@@ -1,4 +1,4 @@
-name: ShellCheck
+name: Codecheck
 on: [push]
 jobs:
   ShellCheck:
