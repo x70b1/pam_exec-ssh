@@ -42,7 +42,7 @@ The `ssh-agent` can be slow. So it is sometimes useful not to unlock all ssh key
 
 ```sh
 mkdir ~/.ssh/unlock.d
-ln -s ~/.ssh/unlock.d/id_rsa ~/.ssh/id_rsa
+ln -s ~/.ssh/id_rsa ~/.ssh/unlock.d/id_rsa
 ```
 
 You can check which keys are unlocked with `ssh-add -l`.
