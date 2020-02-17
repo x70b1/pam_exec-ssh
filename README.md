@@ -22,7 +22,7 @@ Just copy the script and set the permissions.
 ```sh
 cp pam_exec-ssh /usr/bin/pam_exec-ssh
 chown root:root /usr/bin/pam_exec-ssh
-chmod 711 /usr/bin/pam_exec-ssh
+chmod 755 /usr/bin/pam_exec-ssh
 ```
 
 
