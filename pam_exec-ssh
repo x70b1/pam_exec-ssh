@@ -28,7 +28,7 @@ export SSH_AUTH_SOCK
 
 if [ -d /home/"$PAM_USER"/.ssh/unlock.d/ ]; then
     find /home/"$PAM_USER"/.ssh/unlock.d/ -maxdepth 1 ! -wholename "/home/$PAM_USER/.ssh/unlock.d/" ! -name "config" ! -name "known_hosts" ! -name "*.pub" | while read -r key; do
-        agent_add_key "$key" "$PAM_PASS"
+        agent_add_key "$key" "$PAM_PASS" &
     done
 fi
 
