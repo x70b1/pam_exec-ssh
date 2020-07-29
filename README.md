@@ -30,7 +30,7 @@ chmod 755 /usr/bin/pam_exec-ssh
 
 # Configuration
 
-You need a running `ssh-agent`. You can start your agent [manually](https://wiki.archlinux.org/index.php/SSH_keys#ssh-agent) or as a [systemd user service](https://wiki.archlinux.org/index.php/SSH_keys#Start_ssh-agent_with_systemd_user).
+You need a running `ssh-agent`. The agent have to be started before you login. You can start your agent [manually](https://wiki.archlinux.org/index.php/SSH_keys#ssh-agent) or as a [systemd user service](https://wiki.archlinux.org/index.php/SSH_keys#Start_ssh-agent_with_systemd_user).
 
 Make sure that the socket path is correct. `pam_exec-ssh` use `/run/user/YOUR-USER-ID/ssh-agent.socket` for it.
 
