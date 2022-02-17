@@ -9,13 +9,13 @@ Unlock SSH keys on login using PAM. As `pam_ssh` did not the job for me, I wrote
 It is assumed that your login password is identical to the password of the keys.
 
 
-# Dependencies
+## Dependencies
 
 * `pam`
 * `expect`
 
 
-# Installation
+## Installation
 
 For Arch Linux users is already a [pam_exec-ssh](https://aur.archlinux.org/packages/pam_exec-ssh/) package in the AUR.
 
@@ -28,7 +28,7 @@ chmod 755 /usr/bin/pam_exec-ssh
 ```
 
 
-# Configuration
+## Configuration
 
 You need a running `ssh-agent`. The agent have to be started before you login. You can start your agent [manually](https://wiki.archlinux.org/index.php/SSH_keys#ssh-agent) or as a [systemd user service](https://wiki.archlinux.org/index.php/SSH_keys#Start_ssh-agent_with_systemd_user).
 
