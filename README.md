@@ -12,7 +12,7 @@ It is assumed that your login password is identical to the password of the keys.
 
 ## Installation
 
-For Arch Linux users is already a [pam_exec-ssh](https://aur.archlinux.org/packages/pam_exec-ssh/) package in the AUR.
+For Arch Linux users is already a [pam_exec-ssh-git](https://aur.archlinux.org/packages/pam_exec-ssh-git/) package in the AUR.
 
 Otherwise just copy the script, set the permissions and install the dependencies `pam` and `expect`.
 
