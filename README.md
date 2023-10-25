@@ -1,8 +1,8 @@
 # pam_exec-ssh
 
-[![Codecheck](https://github.com/x70b1/pam_exec-ssh/workflows/Codecheck/badge.svg?branch=master)](https://github.com/x70b1/pam_exec-ssh/actions)
-[![GitHub contributors](https://img.shields.io/github/contributors/x70b1/pam_exec-ssh.svg)](https://github.com/x70b1/pam_exec-ssh/graphs/contributors)
-[![license](https://img.shields.io/github/license/x70b1/pam_exec-ssh.svg)](https://github.com/x70b1/pam_exec-ssh/blob/master/LICENSE)
+[![Actions](https://github.com/x70b1/pam_exec-ssh/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/x70b1/pam_exec-ssh/actions)
+[![Contributors](https://img.shields.io/github/contributors/x70b1/pam_exec-ssh.svg)](https://github.com/x70b1/pam_exec-ssh/graphs/contributors)
+[![License](https://img.shields.io/github/license/x70b1/pam_exec-ssh.svg)](https://github.com/x70b1/pam_exec-ssh/blob/master/LICENSE)
 
 Unlock SSH keys on login using PAM.
 
