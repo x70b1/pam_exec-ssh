@@ -3,26 +3,32 @@
 if [ "$(id -un)" != "$PAM_USER" ]; then
     su "$PAM_USER" -s "$0" "$@"
 else
-    read -r PAM_PASS
-    PAM_PASS=$(echo "$PAM_PASS" | sed 's/\$/\\\$/')
+    if [ -d "/home/$PAM_USER/.ssh/unlock.d" ]; then
+        unlockdir="/home/$PAM_USER/.ssh/unlock.d"
+    fi
 
-    SSH_AUTH_SOCK=/run/user/$(id -u "$PAM_USER")/ssh-agent.socket
-    export SSH_AUTH_SOCK
+    if [ -d "/home/$PAM_USER/.ssh/pam.d" ]; then
+        unlockdir="/home/$PAM_USER/.ssh/pam.d"
+    fi
 
-    if [ -d /home/"$PAM_USER"/.ssh/unlock.d/ ]; then
-        find /home/"$PAM_USER"/.ssh/unlock.d/ -maxdepth 1 ! -wholename "/home/$PAM_USER/.ssh/unlock.d/" ! -name "config" ! -name "known_hosts" ! -name "*.pub" | while read -r key; do
+    if [ -d "/home/$PAM_USER/.config/ssh/unlock.d" ]; then
+        unlockdir="/home/$PAM_USER/.config/ssh/unlock.d"
+    fi
 
-            printf '
-            log_user 1
+    if [ -d "/home/$PAM_USER/.config/ssh/pam.d" ]; then
+        unlockdir="/home/$PAM_USER/.config/ssh/pam.d"
+    fi
 
-            spawn ssh-add "%s"
 
-            expect "Enter passphrase for %s" {
-                send "%s\r"
-            }
+    if [ -n "$unlockdir" ]; then
+        read -r PAM_PASS
+        PAM_PASS=$(echo "$PAM_PASS" | sed 's/\$/\\\$/')
 
-            expect eof
-            ' "$key" "$key" "$PAM_PASS" | expect &
+        SSH_AUTH_SOCK=/run/user/$(id -u "$PAM_USER")/ssh-agent.socket
+        export SSH_AUTH_SOCK
+
+        find "$unlockdir" -maxdepth 1 ! -wholename "$unlockdir" | while read -r key; do
+            printf 'log_user 1\n\nspawn ssh-add "%s"\n\nexpect "Enter passphrase for %s" {\nsend "%s\r"\n}\n\nexpect eof' "$key" "$key" "$PAM_PASS" | expect
         done
     fi
 fi

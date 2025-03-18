@@ -31,14 +31,15 @@ You can start your agent [manually](https://wiki.archlinux.org/index.php/SSH_key
 Make sure that the socket path is correct.
 `pam_exec-ssh` use `/run/user/YOUR-USER-ID/ssh-agent.socket` for it.
 
-Add the call to your PAM config:
+`pam_exec-ssh` does not to unlock all ssh keys at login.
+It might be better to unlock only a selection of frequently used keys.
+Create a directory that contains symlinks to all keys that are to be unlocked.
+There are several locations that are checked for that directory:
 
-```
-auth		optional	pam_exec.so expose_authtok /usr/bin/pam_exec-ssh
-```
-
-Sometimes it is useful not to unlock all ssh keys at the login and is better to unlock a selection of often used keys.
-Create a directory `unlock.d` at your local `.ssh` path and set up symlinks to all keys that should be unlocked.
+* `~/.ssh/unlock.d`
+* `~/.ssh/pam.d`
+* `~/.config/ssh/unlock.d`
+* `~/.config/ssh/pam.d`
 
 ```sh
 mkdir ~/.ssh/unlock.d
@@ -46,6 +47,13 @@ ln -s ~/.ssh/id_rsa ~/.ssh/unlock.d/id_rsa
 ```
 
 You can check which keys are unlocked with `ssh-add -l`.
+
+Add the PAM call to your PAM config:
+
+```
+auth		optional	pam_exec.so expose_authtok /usr/bin/pam_exec-ssh
+```
+
 
 To make sure that your keys are locked again you can restart your `ssh-agent`.
 A good time to do this is when you lock your screen, so all keys are locked when you leave your device but the agent is still prepared for the next use.
