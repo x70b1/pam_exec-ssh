@@ -25,7 +25,7 @@ else
         PAM_PASS=$(echo "$PAM_PASS" | sed 's/\$/\\\$/')
 
         if hash keychain 2>/dev/null; then
-                eval $(keychain --eval --quiet)
+                eval "$(keychain --eval --quiet)"
         else
                 SSH_AUTH_SOCK=/run/user/$(id -u "$PAM_USER")/ssh-agent.socket
                 export SSH_AUTH_SOCK
