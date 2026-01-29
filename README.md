@@ -14,7 +14,7 @@ It is assumed that your login password is identical to the password of the keys.
 
 For Arch Linux users is already a [pam_exec-ssh-git](https://aur.archlinux.org/packages/pam_exec-ssh-git/) package in the AUR.
 
-Otherwise just copy the script, set the permissions and install the dependencies `pam` and `expect`.
+Otherwise just copy the script, set the permissions and install the dependencies `pam` and `expect` and optionally `keychain`.
 
 ```sh
 cp pam_exec-ssh /usr/bin/pam_exec-ssh
@@ -26,7 +26,14 @@ chmod 755 /usr/bin/pam_exec-ssh
 ## Configuration
 
 You need a running `ssh-agent` that have to be started before you login.
-You can start your agent [manually](https://wiki.archlinux.org/index.php/SSH_keys#ssh-agent) or as a [systemd user service](https://wiki.archlinux.org/index.php/SSH_keys#Start_ssh-agent_with_systemd_user).
+If you have `keychain` installed, the script will run it and start the `ssh-agent` automatically.
+Be sure to also start it in your `~/.bashrc` to get the environment variables set correctly, for example:
+
+```
+eval $(keychain --eval --quiet)
+```
+
+Of course you can also start your agent [manually](https://wiki.archlinux.org/index.php/SSH_keys#ssh-agent) or as a [systemd user service](https://wiki.archlinux.org/index.php/SSH_keys#Start_ssh-agent_with_systemd_user).
 
 Make sure that the socket path is correct.
 `pam_exec-ssh` use `/run/user/YOUR-USER-ID/ssh-agent.socket` for it.

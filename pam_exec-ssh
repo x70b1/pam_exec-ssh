@@ -24,8 +24,12 @@ else
         read -r PAM_PASS
         PAM_PASS=$(echo "$PAM_PASS" | sed 's/\$/\\\$/')
 
-        SSH_AUTH_SOCK=/run/user/$(id -u "$PAM_USER")/ssh-agent.socket
-        export SSH_AUTH_SOCK
+        if hash keychain 2>/dev/null; then
+                eval "$(keychain --eval --quiet)"
+        else
+                SSH_AUTH_SOCK=/run/user/$(id -u "$PAM_USER")/ssh-agent.socket
+                export SSH_AUTH_SOCK
+        fi
 
         find "$unlockdir" -maxdepth 1 ! -wholename "$unlockdir" | while read -r key; do
             printf 'log_user 1\n\nspawn ssh-add "%s"\n\nexpect "Enter passphrase for %s" {\nsend "%s\r"\n}\n\nexpect eof' "$key" "$key" "$PAM_PASS" | expect
