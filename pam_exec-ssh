@@ -32,7 +32,7 @@ else
         fi
 
         find "$unlockdir" -maxdepth 1 ! -wholename "$unlockdir" | while read -r key; do
-            printf 'log_user 1\n\nspawn ssh-add "%s"\n\nexpect "Enter passphrase for %s" {\nsend "%s\r"\n}\n\nexpect eof' "$key" "$key" "$PAM_PASS" | expect
+            printf 'log_user 1\n\nspawn ssh-add "%s"\n\nexpect "Enter passphrase for %s" {\nsend "%s\r"\n}\n\nexpect eof' "$key" "$key" "$PAM_PASS" | expect &
         done
     fi
 fi
