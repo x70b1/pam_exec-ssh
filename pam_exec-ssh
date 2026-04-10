@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ "$(id -un)" != "$PAM_USER" ]; then
-    su "$PAM_USER" -s "$0" "$@"
+    su "$PAM_USER" -c "$0" "$@"
 else
     if [ -d "/home/$PAM_USER/.ssh/unlock.d" ]; then
         unlockdir="/home/$PAM_USER/.ssh/unlock.d"
